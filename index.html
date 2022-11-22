@@ -10,38 +10,112 @@
     <script src="app.js" defer></script>
 </head>
 
-<body>
+<body class="">
     <header>
+        <div class="theme-changer">
+            <button class="theme-button" id="light-button">Light</button>
+            <button class="theme-button" id="dark-button">Dark</button>
+        </div>
         <h1>Tic Tac Toe : Color Edition</h1>
     </header>
     <div class="game-panel">
+        <!------------------------------------->
+        <div class="form" id="player-form">
+            <div class="form-inner">
+                <div class="player-information-container">
+                    <label for="player-one-name">Player 1</label>
+                    <input type="text" id="player-one-name" name="player-one-name" value="Player 1" />
+                </div>
+                <div class="color-container">
+                    <label for="player-one-color">Player 1 Color</label>
+                    <div class="color-selection-container" id="player-one-color">
+                        <div class="radio-container">
+                            <input type="radio" name="color-p1" id="theme-1" value="#ffafcc" />
+                            <label for="theme-1"></label>
+                        </div>
+                        <div class="radio-container">
+                            <input type="radio" name="color-p1" id="theme-2" value="#a2d2ff" />
+                            <label for="theme-2"></label>
+                        </div>
+                        <div class="radio-container">
+                            <input type="radio" name="color-p1" id="theme-3" value="#ffb703" />
+                            <label for="theme-3"></label>
+                        </div>
+                        <div class="radio-container">
+                            <input type="radio" name="color-p1" id="theme-4" value="#fa4949" />
+                            <label for="theme-4"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-inner">
+                <div class="player-information-container">
+                    <label for="player-two-name">Player 2</label>
+                    <input type="text" id="player-two-name" name="player-two-name" value="Player 2" />
+                </div>
+                <div class="color-container">
+                    <label for="player-two-color">Player 2 Color</label>
+                    <div class="color-selection-container" id="player-two-color">
+                        <div class="radio-container">
+                            <input type="radio" name="color-p2" id="theme-5" value="#a341e4" />
+                            <label for="theme-5"></label>
+                        </div>
+                        <div class="radio-container">
+                            <input type="radio" name="color-p2" id="theme-6" value="#4c4af1" />
+                            <label for="theme-6"></label>
+                        </div>
+                        <div class="radio-container">
+                            <input type="radio" name="color-p2" id="theme-7" value="#f8f669" />
+                            <label for="theme-7"></label>
+                        </div>
+                        <div class="radio-container">
+                            <input type="radio" name="color-p2" id="theme-8" value="#a1ff0a" />
+                            <label for="theme-8"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!------------------------------------->
         <div class="game-button-container">
             <button class="game-button" id="start-button">
                 Start Game
             </button>
+            <button class="game-button hidden" id="reset-button">
+                Reset Game
+            </button>
+            <button class="game-button hidden" id="restart-button">
+                Restart Game
+            </button>
+        </div>
+        <div class="winner-container hidden">
+            <h2><span id="winner-name"></span> Wins!</h2>
         </div>
     </div>
-    <div class="grid-container">
-        <div class="grid-item" data-selectedBy="none" data-position="1">
-        </div>
-        <div class="grid-item" data-selectedBy="none" data-position="2">
-        </div>
-        <div class="grid-item" data-selectedBy="none" data-position="3">
-        </div>
-        <div class="grid-item" data-selectedBy="none" data-position="4">
-        </div>
-        <div class="grid-item" data-selectedBy="none" data-position="5">
-        </div>
-        <div class="grid-item" data-selectedBy="none" data-position="6">
-        </div>
-        <div class="grid-item" data-selectedBy="none" data-position="7">
-        </div>
-        <div class="grid-item" data-selectedBy="none" data-position="8">
-        </div>
-        <div class="grid-item" data-selectedBy="none" data-position="9">
+    <!------------------------------------------->
+    <div class="hidden" id="game-container">
+        <div class="grid-container">
+            <div class="grid-item" data-selectedBy="none" data-position="1">
+            </div>
+            <div class="grid-item" data-selectedBy="none" data-position="2">
+            </div>
+            <div class="grid-item" data-selectedBy="none" data-position="3">
+            </div>
+            <div class="grid-item" data-selectedBy="none" data-position="4">
+            </div>
+            <div class="grid-item" data-selectedBy="none" data-position="5">
+            </div>
+            <div class="grid-item" data-selectedBy="none" data-position="6">
+            </div>
+            <div class="grid-item" data-selectedBy="none" data-position="7">
+            </div>
+            <div class="grid-item" data-selectedBy="none" data-position="8">
+            </div>
+            <div class="grid-item" data-selectedBy="none" data-position="9">
+            </div>
         </div>
     </div>
-
 
 </body>
 
