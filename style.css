@@ -1,0 +1,132 @@
+/* Reset CSS*/
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    box-sizing: border-box;
+    overflow-y: hidden;
+}
+
+body {
+    height: 100vh;
+}
+
+header {
+    margin: 2rem;
+    text-align: center;
+    letter-spacing: 0.3rem;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: clamp(80%, 90%, 1000px);
+    height: fit-content;
+    gap: 10rem;
+    margin: auto;
+    padding: 2rem;
+    background-color: rgb(72, 60, 70);
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.grid-item {
+    min-width: 0;
+    min-height: 0;
+    background-color: rgba(60, 110, 113, 0.75);
+    /*blur */
+    backdrop-filter: blur(3px);
+    border: 1px solid black;
+    border-radius: 50%;
+    transition: transform 350ms;
+    min-width: 85%;
+    max-width: 100%;
+    aspect-ratio: 1;
+    margin: auto;
+}
+
+.grid-item:hover {
+    /* add background shadow */
+    background-color: #70AE6E;
+    backdrop-filter: blur(5px);
+    transform: scale(0.9);
+    cursor: pointer;
+}
+
+.grid-item[data-selectedBy="player-one"] {
+    background-color: rgba(244, 116, 59, 1);
+}
+
+.grid-item[data-selectedBy="player-two"] {
+    background-color: rgba(190, 238, 98, 1);
+}
+
+.game-panel {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.game-button-container {
+    width: 50%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.game-button {
+    padding: 0.5rem;
+    text-transform: uppercase;
+    scale: 1.5;
+    border-radius: 50px;
+}
+
+.game-button#start-button {
+    background-color: #70AE6E;
+    color: white;
+}
+
+.game-button#start-button:hover {
+    background-color: #1fd319;
+    color: black;
+    cursor: pointer;
+}
+
+/* Media Queries */
+/* Mobile */
+@media screen and (max-width: 600px) {
+    .grid-container {
+        gap: 2rem;
+    }
+
+    .grid-item {
+        width: 95%;
+    }
+}
+
+/* Tablet */
+@media screen and (min-width: 601px) and (max-width: 1000px) {
+    .grid-container {
+        gap: 3rem;
+        width: 50%;
+    }
+
+    .grid-item {
+        width: 100%;
+    }
+}
+
+/* Desktop */
+@media screen and (min-width: 901px) {
+    .grid-container {
+        gap: 4rem;
+        width: 50%;
+    }
+
+    .grid-item {
+        width: 90%;
+    }
+}
