@@ -96,7 +96,8 @@ header {
     gap: 10rem;
     margin: auto;
     padding: 2rem;
-    background-color: rgb(72, 60, 70);
+    background-color: hsl(0 0% 100% / 0.4);
+    backdrop-filter: blur(10px);
     align-items: center;
     justify-content: center;
     border-radius: 10px;
@@ -105,7 +106,7 @@ header {
 .grid-item {
     min-width: 0;
     min-height: 0;
-    background-color: rgba(60, 110, 113, 0.75);
+    background-color: var(--text);
     /*blur */
     backdrop-filter: blur(3px);
     border: 1px solid black;
@@ -115,13 +116,13 @@ header {
     max-width: 100%;
     aspect-ratio: 1;
     margin: auto;
+    transition: all 0.3s ease-in-out;
 }
 
 .grid-item:hover {
     /* add background shadow */
-    background-color: #70AE6E;
+    background-color: var(--text);
     backdrop-filter: blur(5px);
-    transform: scale(0.9);
     cursor: pointer;
 }
 
@@ -163,6 +164,11 @@ header {
     color: white;
 }
 
+.game-button#restart-button {
+    background-color: #f43b3b;
+    color: white;
+}
+
 .game-button#start-button:hover {
     background-color: #1fd319;
     color: black;
@@ -171,6 +177,12 @@ header {
 
 .game-button#reset-button:hover {
     background-color: #f44336;
+    color: black;
+    cursor: pointer;
+}
+
+.game-button#restart-button:hover {
+    background-color: #7e0d05;
     color: black;
     cursor: pointer;
 }
@@ -348,6 +360,11 @@ input {
     .color-selection-container {
         grid-template-columns: repeat(2, 1fr);
         aspect-ratio: 1;
+    }
+
+    .game-button-container {
+        flex-direction: column;
+        gap: 2rem;
     }
 
     #player-one-color .radio-container input:checked~label::after {

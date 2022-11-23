@@ -3,6 +3,7 @@ let gameContainer = document.getElementById('game-container');
 let gridItems = document.querySelectorAll('.grid-item');
 let startButton = document.querySelector('#start-button');
 let resetButton = document.querySelector('#reset-button');
+let restartButton = document.querySelector('#restart-button');
 let form = document.querySelector('#player-form');
 let winnerContainer = document.querySelector('.winner-container');
 
@@ -16,9 +17,16 @@ let win = false;
 let playerOneSelections = [];
 let playerTwoSelections = [];
 let timerInterval;
+let playerOneName;
+let playerTwoName;
+let playerOneColorSelection;
+let playerTwoColorSelection;
 
-if (document.cookie) {
-    form.classList.add('hidden');
+window.onload = function () {
+    localStorage.getItem('theme') === 'dark' ? document.querySelector('body').classList.add('dark') : document.querySelector('body').classList.add('light');
+    if (localStorage.getItem('playerOneName') != null) {
+        form.style.display = 'none';
+    }
 }
 
 startButton.addEventListener('click', function () {
@@ -28,6 +36,11 @@ startButton.addEventListener('click', function () {
 resetButton.addEventListener('click', function () {
     resetGame();
 });
+
+restartButton.addEventListener('click', function () {
+    resetPlayers();
+});
+
 let winningCombinations = [
     [1, 2, 3],
     [4, 5, 6],
@@ -146,14 +159,19 @@ function endGame() {
     else {
         winnerContainer.innerHTML = `<h1>Draw!</h1>`;
     }
-
-    setTimeout(() => {
-        gameContainer.classList.add('hidden');
-    }, 4000);
+    gameContainer.classList.add('hidden');
 
 }
 
 function resetGame() {
+    window.location.reload();
+}
+
+function resetPlayers() {
+    localStorage.removeItem('playerOneName');
+    localStorage.removeItem('playerTwoName');
+    localStorage.removeItem('playerOneColorSelection');
+    localStorage.removeItem('playerTwoColorSelection');
     window.location.reload();
 }
 
@@ -182,13 +200,26 @@ if (currentTheme) {
 
 function setPlayers() {
 
-    playerOneName = document.getElementById('player-one-name').value;
-    playerTwoName = document.getElementById('player-two-name').value;
-    playerOneColorSelection = document.querySelector('input[name="color-p1"]:checked').value;
-    playerTwoColorSelection = document.querySelector('input[name="color-p2"]:checked').value;
+    if (localStorage.getItem('playerOneName') != null) {
+        playerOneName = localStorage.getItem('playerOneName');
+        playerTwoName = localStorage.getItem('playerTwoName');
+        playerOneColorSelection = localStorage.getItem('playerOneColorSelection');
+        playerTwoColorSelection = localStorage.getItem('playerTwoColorSelection');
+    }
+    else {
 
-    //log data
-    console.log(playerOneName, playerTwoName, playerOneColorSelection, playerTwoColorSelection);
+        playerOneName = document.getElementById('player-one-name').value;
+        playerTwoName = document.getElementById('player-two-name').value;
+        playerOneColorSelection = document.querySelector('input[name="color-p1"]:checked').value;
+        playerTwoColorSelection = document.querySelector('input[name="color-p2"]:checked').value;
+
+
+        //set as local storage
+        localStorage.setItem('playerOneName', playerOneName);
+        localStorage.setItem('playerTwoName', playerTwoName);
+        localStorage.setItem('playerOneColorSelection', playerOneColorSelection);
+        localStorage.setItem('playerTwoColorSelection', playerTwoColorSelection);
+    }
 
     //change css variables to match player colors
     document.documentElement.style.setProperty('--player-one-theme', playerOneColorSelection);
