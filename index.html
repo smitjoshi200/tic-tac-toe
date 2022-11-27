@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Favicon-->
+    <link rel="icon" href="assets/icon/tictactoelogo.png" type="image/png" sizes="16x16">
+    <meta name="description" content="A Tic Tac Toe game with a 4 x 4 Board and Colors">
     <title>Tic-Tac-Toe</title>
+    <link rel="manifest" href="manifest.json">
     <link href="style.css" rel="stylesheet" type="text/css">
     <script src="app.js" defer></script>
 </head>
@@ -13,10 +17,19 @@
 <body class="">
     <header>
         <div class="theme-changer">
-            <button class="theme-button" id="light-button">Light</button>
-            <button class="theme-button" id="dark-button">Dark</button>
+            <div class="theme-drawer-button-container">
+                <button class="nav-button">
+                    <div class="nav-button-line " id="line-one"></div>
+                    <div class="nav-button-line" id="line-two"></div>
+                    <div class="nav-button-line" id="line-three"></div>
+                </button>
+            </div>
+            <div class="theme-button-container">
+                <button class="theme-button" id="light-button">Light</button>
+                <button class="theme-button" id="dark-button">Dark</button>
+            </div>
         </div>
-        <h1>Tic Tac Toe : Color Edition</h1>
+        <h1 class="title">Tic Tac Toe 4 x 4 : Color Edition</h1>
     </header>
     <div class="game-panel">
         <!------------------------------------->
@@ -95,6 +108,9 @@
     </div>
     <!------------------------------------------->
     <div class="hidden" id="game-container">
+        <div class="player-data-container">
+            <div class="current-player-indicator"><span></span></div>
+        </div>
         <div class="grid-container">
             <div class="grid-item" data-selectedBy="none" data-position="1">
             </div>
@@ -114,9 +130,25 @@
             </div>
             <div class="grid-item" data-selectedBy="none" data-position="9">
             </div>
+            <div class="grid-item" data-selectedBy="none" data-position="10">
+            </div>
+            <div class="grid-item" data-selectedBy="none" data-position="11">
+            </div>
+            <div class="grid-item" data-selectedBy="none" data-position="12">
+            </div>
+            <div class="grid-item" data-selectedBy="none" data-position="13">
+            </div>
+            <div class="grid-item" data-selectedBy="none" data-position="14">
+            </div>
+            <div class="grid-item" data-selectedBy="none" data-position="15">
+            </div>
+            <div class="grid-item" data-selectedBy="none" data-position="16">
+            </div>
         </div>
     </div>
-
+    <script>
+        navigator.serviceWorker.register('service-worker.js');
+    </script>
 </body>
 
 </html>

@@ -1,5 +1,9 @@
 let root = document.documentElement;
+let heading = document.querySelector('.title');
+let navButton = document.querySelector('.nav-button');
+let themeButtonContainer = document.querySelector('.theme-button-container');
 let gameContainer = document.getElementById('game-container');
+let playerIndicatorSpan = document.querySelector('.current-player-indicator span');
 let gridItems = document.querySelectorAll('.grid-item');
 let startButton = document.querySelector('#start-button');
 let resetButton = document.querySelector('#reset-button');
@@ -7,7 +11,7 @@ let restartButton = document.querySelector('#restart-button');
 let form = document.querySelector('#player-form');
 let winnerContainer = document.querySelector('.winner-container');
 
-// Tic Tac Toe
+// Tic Tac Toe - 4 x 4
 let playerOne = 'player-one';
 let playerTwo = 'player-two';
 let currentPlayer = playerOne;
@@ -29,6 +33,16 @@ window.onload = function () {
     }
 }
 
+navButton.addEventListener('click', function () {
+    this.classList.toggle('open');
+    if (this.classList.contains('open')) {
+        themeButtonContainer.style.display = 'block';
+    }
+    else {
+        themeButtonContainer.style.display = 'none';
+    }
+});
+
 startButton.addEventListener('click', function () {
     startGame();
 });
@@ -42,14 +56,16 @@ restartButton.addEventListener('click', function () {
 });
 
 let winningCombinations = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9],
-    [1, 4, 7],
-    [2, 5, 8],
-    [3, 6, 9],
-    [1, 5, 9],
-    [3, 5, 7]
+    [1, 2, 3, 4],
+    [5, 6, 7, 8],
+    [9, 10, 11, 12],
+    [13, 14, 15, 16],
+    [1, 5, 9, 13],
+    [2, 6, 10, 14],
+    [3, 7, 11, 15],
+    [4, 8, 12, 16],
+    [1, 6, 11, 16],
+    [4, 7, 10, 13]
 ];
 
 function startGame() {
@@ -60,10 +76,14 @@ function startGame() {
         // console.log(timer);
     }, 1000);
     currentPlayer = playerOne;
+    playerIndicatorSpan.innerText = playerOneName;
     console.log('Game started');
+    heading.classList.add('hidden');
     gameContainer.classList.remove('hidden');
     startButton.classList.add('hidden');
-    resetButton.classList.remove('hidden');
+    resetButton.classList.add('hidden');
+    restartButton.classList.add('hidden');
+    winnerContainer.classList.add('hidden');
     playGame();
 
 }
@@ -71,20 +91,47 @@ function startGame() {
 function playGame() {
     gridItems.forEach(function (gridItem) {
         gridItem.addEventListener('click', function () {
-            if (getCurrentPlayer() === playerOne) {
-                gridItem.setAttribute('data-selectedBy', playerOne);
-                playerOneSelections.push(parseInt(gridItem.getAttribute('data-position')));
-                checkWinner();
-                switchPlayer();
-            }
-            else if (getCurrentPlayer() === playerTwo) {
-                gridItem.setAttribute('data-selectedBy', playerTwo);
-                playerTwoSelections.push(parseInt(gridItem.getAttribute('data-position')));
-                checkWinner();
-                switchPlayer();
-            }
-            else {
-                console.log('Something went wrong');
+            if (gridItem.getAttribute('data-selectedBy') == 'none') {
+                if (getCurrentPlayer() === playerOne) {
+                    if (playerOneSelections.length < 4) {
+                        gridItem.setAttribute('data-selectedBy', playerOne);
+                        playerOneSelections.push(parseInt(gridItem.getAttribute('data-position')));
+                        gridItem.classList.add(playerOneColorSelection);
+                    }
+                    else {
+                        let firstItem = playerOneSelections.shift();
+                        let firstItemElement = document.querySelector(`[data-position="${firstItem}"]`);
+                        firstItemElement.setAttribute('data-selectedBy', 'none');
+                        firstItemElement.classList.remove(playerOneColorSelection);
+                        gridItem.setAttribute('data-selectedBy', playerOne);
+                        playerOneSelections.push(parseInt(gridItem.getAttribute('data-position')));
+                        gridItem.classList.add(playerOneColorSelection);
+                    }
+
+                    checkWinner();
+                    switchPlayer();
+                }
+                else if (getCurrentPlayer() === playerTwo) {
+                    if (playerTwoSelections.length < 4) {
+                        gridItem.setAttribute('data-selectedBy', playerTwo);
+                        playerTwoSelections.push(parseInt(gridItem.getAttribute('data-position')));
+                        gridItem.classList.add(playerTwoColorSelection);
+                    }
+                    else {
+                        let firstItem = playerTwoSelections.shift();
+                        let firstItemElement = document.querySelector(`[data-position="${firstItem}"]`);
+                        firstItemElement.setAttribute('data-selectedBy', 'none');
+                        firstItemElement.classList.remove(playerTwoColorSelection);
+                        gridItem.setAttribute('data-selectedBy', playerTwo);
+                        playerTwoSelections.push(parseInt(gridItem.getAttribute('data-position')));
+                        gridItem.classList.add(playerTwoColorSelection);
+                    }
+                    checkWinner();
+                    switchPlayer();
+                }
+                else {
+                    console.log('Something went wrong');
+                }
             }
         });
     });
@@ -97,6 +144,7 @@ function switchPlayer() {
     else if (getCurrentPlayer() === playerTwo) {
         currentPlayer = playerOne;
     }
+    playerIndicatorSpan.innerText = getCurrentPlayer() == playerOne ? playerOneName : playerTwoName;
 }
 
 function getCurrentPlayer() {
@@ -126,7 +174,7 @@ function checkForWin(playerSelections) {
                 count++;
             }
         });
-        if (count === 3) {
+        if (count === 4) {
             win = true;
             count = 0;
         }
@@ -160,6 +208,8 @@ function endGame() {
         winnerContainer.innerHTML = `<h1>Draw!</h1>`;
     }
     gameContainer.classList.add('hidden');
+    restartButton.classList.remove('hidden');
+    resetButton.classList.remove('hidden');
 
 }
 

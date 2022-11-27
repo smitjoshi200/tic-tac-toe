@@ -1,5 +1,5 @@
 /* Imports */
-@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap");
 
 /* Reset CSS*/
 *,
@@ -9,9 +9,21 @@
     padding: 0;
     border: 0;
     outline: none;
+    -webkit-outline: none;
     box-sizing: border-box;
-
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     /* overflow-y: hidden; */
+}
+
+*:focus,
+*:active {
+    outline: none;
 }
 
 /* Variables */
@@ -53,12 +65,11 @@
     --text: var(--ft-dark);
 }
 
-
 body {
     height: 100vh;
     background-color: var(--bg);
     color: var(--text);
-    font-family: 'Patrick Hand', cursive;
+    font-family: "Patrick Hand", cursive;
 }
 
 header {
@@ -68,20 +79,83 @@ header {
 }
 
 .theme-changer {
+    position: relative;
     display: flex;
+    flex-direction: column;
     justify-content: end;
-    align-items: center;
-    margin: 2rem;
+    align-items: flex-end;
+    margin: 0.1rem 1rem 2rem 0;
     gap: 1rem;
 }
 
+.theme-button-container {
+    display: none;
+}
+
+.nav-button {
+    position: relative;
+    padding: 0.3rem;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+}
+
+.theme-drawer-button-container {
+    width: 2.2rem;
+    aspect-ratio: 1;
+}
+
+.nav-button-line {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    transform-origin: center center;
+    transition: transform 0.3s ease-in-out;
+    background-color: var(--text);
+}
+
+#line-one {
+    transform: translateY(0.5rem);
+}
+
+#line-three {
+    transform: translateY(-0.5rem);
+}
+
+.open #line-one {
+    transform: rotate(45deg) translateX(0.1rem);
+}
+
+.open #line-three {
+    transform: rotate(-45deg) translateX(-0.05rem);
+}
+
+.open #line-two {
+    opacity: 0;
+}
+
+
 .theme-button {
     padding: 0.4rem 0.3rem;
-    border-radius: 15px;
+    border-radius: 5px;
     border: 2px solid var(--text);
     background-color: var(--bg);
     color: var(--text);
     cursor: pointer;
+    outline: none;
+    -webkit-outline: none;
+}
+
+.theme-button#light-button {
+    background-color: var(--bg-light);
+    color: var(--ft-light);
+    border: 2px solid var(--ft-light);
+}
+
+.theme-button#dark-button {
+    background-color: var(--bg-dark);
+    color: var(--ft-dark);
+    border: 2px solid var(--ft-dark);
 }
 
 .hidden {
@@ -90,7 +164,7 @@ header {
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     width: clamp(80%, 90%, 1000px);
     height: fit-content;
     gap: 10rem;
@@ -155,12 +229,12 @@ header {
 }
 
 .game-button#start-button {
-    background-color: #70AE6E;
+    background-color: #70ae6e;
     color: white;
 }
 
 .game-button#reset-button {
-    background-color: #F4743B;
+    background-color: #f4743b;
     color: white;
 }
 
@@ -194,7 +268,6 @@ header {
     gap: 2rem;
     justify-content: center;
     align-items: center;
-
 }
 
 .form .form-inner {
@@ -334,9 +407,51 @@ input {
     font-size: 4rem;
 }
 
+.player-data-container {
+    margin-bottom: 2rem;
+    margin-left: 2rem;
+}
+
+.current-player-indicator {
+    position: relative;
+    font-size: 2rem;
+}
+
+.current-player-indicator span {
+    margin-left: 2rem;
+}
+
+.current-player-indicator::before {
+    position: absolute;
+    content: '';
+    width: 1rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    margin: 1rem 1rem 1rem 0;
+    text-align: center;
+    font-size: 2rem;
+    background-color: limegreen;
+    animation: blinking 1s infinite;
+}
+
+@keyframes blinking {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 /* Media Queries */
 /* Mobile */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 750px) {
+
     .grid-container {
         gap: 2rem;
     }
@@ -395,7 +510,9 @@ input {
 }
 
 /* Tablet */
-@media screen and (min-width: 601px) and (max-width: 1000px) {
+@media screen and (min-width: 751px) and (max-width: 1000px) {
+
+
     .grid-container {
         gap: 3rem;
         width: 50%;
@@ -405,7 +522,6 @@ input {
         width: 100%;
     }
 
-
     .color-selection-container {
         grid-template-columns: repeat(2, 1fr);
         aspect-ratio: 1;
@@ -414,6 +530,7 @@ input {
 
 /* Desktop */
 @media screen and (min-width: 1001px) {
+
     .grid-container {
         gap: 4rem;
         width: 50%;
